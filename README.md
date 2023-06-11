@@ -39,6 +39,8 @@ by how much on average our predicted total calories were from the actual total c
 we did calculate the R<sup>2</sup> score to better understand how our model performed, we will
 focus on RMSE.
 
+---
+
 ## Baseline Model
 For our baseline model, we used the `protein (PDV)` column and the `sugar (PDV)` column - 
 both of which are quantitative variables. We chose these two because we knew from existing 
@@ -48,7 +50,18 @@ Prior to inputting these features into our sklearn `LinearRegression` model, we 
 <br><br>
 This is how the model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R<sup>2</sup>: 0.59 | Test r2: 0.6
+Train R<sup>2</sup>: 0.59 | Test R<sup>2</sup>: 0.6
 <br><br>
 
+---
+
+## Final Model
+For our final model, we decided to use the following features:
+`contains_sugar` (binary): This is a feature that we engineered from the `ingredients` column. It is a boolean value that indicates whether the ingredients list contains a sugar product (cane sugar, powdered sugar, granulated sugar, etc). We then one-hot encoded this column prior to its use in the actual model. The reason we used this feature is because in our exploratory data analysis, we found a significant difference in calories when sugar was an ingredient vs. when it was not. This led us to believe that this feature would carry weight when it came to predicting calories.
+`total fat (PDV)`, `sugar (PDV)`, `sodium (PDV)`, `protein (PDV)`, `saturated fat (PDV)`, `carbohydrates (PDV)` (quantitative): These are all features that we extracted during the data cleaning process from the original `nutrition` column, which contained nutrition facts about each recipes. Since all these are numerical columns, we standardized each before they were inputted to the model. We chose to use these features because they all, scientifically, have a relation to calories. For example, 1 gram of protein is 4 calories, 1 gram of fat is 9 calories, 1 gram of sugar is 4 calories, etc. Since these relationships exist naturally, we reasoned that they would be solid features.
+`minutes` (binarized, categorical): This is a feature engineered from binarizing the original `minutes` column with a threshold of 440 minutes (how we got this number will be explained later). We performed EDA with the minutes column and found a moderate, negative relationship between minutes and calories, after a certain threshold of minutes. See the graph below. Because of this EDA, we decided that a binarizer could help us capture this relationship since after a certain minute value, recipes would have lower calories.
+<br><br>
+We opted against using the `Average Rating` column because in our previous EDA, we noticed that the distribution of calories is pretty similar regardless of the `Average Rating`. We thought that adding this variable in our model could add a spurious variable with no real effect.
+<br><br>
+For our actual modeling algorithm, we chose sklearn’s `DecisionTreeRegressor`, since we would be predicting a continuous variable `calories`. We suspected that adding the categorical columns in our model might break the linearity assumption for the linear regression algorithm. Thus, to stay on the same side, we opted for `DecisionTreeRegressor`.
 
