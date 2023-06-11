@@ -5,7 +5,7 @@ recipes and their ratings. In preparation for identifying a prediction problem, 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here is the first five rows of the resulting dataframe we worked with:
+Here are the first five rows of the resulting dataframe we worked with:
 
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
@@ -15,3 +15,8 @@ Here is the first five rows of the resulting dataframe we worked with:
 | paula deen s caramel apple cheesecake | 275030 |        45 |        11 | ['apple pie filling', ..., 'pecans'] |               9 |                5 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 | midori poached pears                  | 275032 |        25 |         8 | ['midori melon liqueur', ..., 'mint']        |               9 |                5 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
 
+Looking at our data set, we identified the following prediction problem: 
+*”How can we best predict a recipe’s total calories using the features present in the data set?”*
+
+This problem is a `regression` problem because we are trying to predict specific numerical 
+values, rather than creating a classification per recipe.
