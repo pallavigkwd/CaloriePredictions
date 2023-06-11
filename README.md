@@ -46,9 +46,9 @@ knowledge that protein and sugar have a linear relationship with the amount of c
 wanted to see that just off this information alone, how well we could make our predictions. 
 Prior to inputting these features into our sklearn `LinearRegression` model, we standardized both of them.
 <br><br>
-This is how the model performed:
-Train RMSE: 200.17, Test RMSE: 200.17
-Train R<sup>2</sup>: 0.59, Test r2: 0.6
+This is how the model performed: <br>
+Train RMSE: 200.17 | Test RMSE: 200.17 <br>
+Train R<sup>2</sup>: 0.59 | Test r2: 0.6
 <br><br>
 
 
