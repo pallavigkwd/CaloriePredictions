@@ -6,7 +6,7 @@ recipes and their ratings. In preparation for identifying a prediction problem, 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here are the first five rows of the resulting dataframe we worked with:
+Here are the first five rows of the resulting dataframe we worked with<sup>\*</sup>:
 
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
@@ -16,23 +16,23 @@ Here are the first five rows of the resulting dataframe we worked with:
 | paula deen s caramel apple cheesecake | 275030 |        45 |        11 | ['apple pie filling', ..., 'pecans'] |               9 |                5 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 | midori poached pears                  | 275032 |        25 |         8 | ['midori melon liqueur', ..., 'mint']        |               9 |                5 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
 
-<font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
+<font size = '2'> <center> <em> <sup>\*</sup>Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
 #### Predition Problem: Predicting Calories
 Looking at our data set, we identified the following prediction problem:<br>
-<b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*
+<b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*</b>
 
-Problem Type: <b>Regression <br>
+Problem Type: <b>Regression</b> <br>
 This problem is a regression problem because we are trying to predict specific numerical 
 values, rather than creating a classification per recipe.
 
-Response Variable: <b>Calories <br>
+Response Variable: <b>Calories</b> <br>
 We chose to predict `calories` because we felt it is one of the most important values people 
 look at when choosing to prepare a recipe. Many people track their daily caloric intake and 
 use calorie counts to quantify the healthiness of a recipe. For this reason, we were 
 interested in predicting the recipes’ total calories. 
 
-Model Metric: <b>Root Mean Squared Error (RMSE) <br>
+Model Metric: <b>Root Mean Squared Error</b> (RMSE) <br>
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
 by how much on average our predicted total calories were from the actual total calories.
