@@ -19,20 +19,20 @@ Here are the first five rows of the resulting dataframe we worked with:
 <font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
 #### Predition Problem: Predicting Calories
-Looking at our data set, we identified the following prediction problem:<b>
-*”How can we best predict a recipe’s total calories using the features present in the data set?”*
+Looking at our data set, we identified the following prediction problem:<br>
+<b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*
 
-Problem Type: Regression <b>
+Problem Type: <b>Regression <br>
 This problem is a regression problem because we are trying to predict specific numerical 
 values, rather than creating a classification per recipe.
 
-Response Variable: Calories <b>
+Response Variable: <b>Calories <br>
 We chose to predict `calories` because we felt it is one of the most important values people 
 look at when choosing to prepare a recipe. Many people track their daily caloric intake and 
 use calorie counts to quantify the healthiness of a recipe. For this reason, we were 
 interested in predicting the recipes’ total calories. 
 
-Model Metric: Root Mean Squared Error (RMSE) <b>
+Model Metric: <b>Root Mean Squared Error (RMSE) <br>
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
 by how much on average our predicted total calories were from the actual total calories.
