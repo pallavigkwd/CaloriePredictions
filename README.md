@@ -6,7 +6,7 @@ recipes and their ratings. In preparation for identifying a prediction problem, 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here are the first five rows of the resulting dataframe we worked with<sup>\*</sup>:
+Here are the first five rows of the resulting dataframe<sup>\*</sup> we worked with:
 
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
@@ -32,10 +32,23 @@ look at when choosing to prepare a recipe. Many people track their daily caloric
 use calorie counts to quantify the healthiness of a recipe. For this reason, we were 
 interested in predicting the recipes’ total calories. 
 
-Model Metric: <b>Root Mean Squared Error</b> (RMSE) <br>
+Model Metric: <b>Root Mean Squared Error (RMSE)</b> <br>
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
-by how much on average our predicted total calories were from the actual total calories.
+by how much on average our predicted total calories were from the actual total calories. While
+we did calculate the R<sup>2</sup> score to better understand how our model performed, we will
+focus on RMSE.
+
+## Baseline Model
+For our baseline model, we used the `protein (PDV)` column and the `sugar (PDV)` column - 
+both of which are quantitative variables. We chose these two because we knew from existing 
+knowledge that protein and sugar have a linear relationship with the amount of calories. We 
+wanted to see that just off this information alone, how well we could make our predictions. 
+Prior to inputting these features into our sklearn `LinearRegression` model, we standardized both of them.
+<br><br>
+This is how the model performed:
+Train RMSE: 200.17, Test RMSE: 200.17
+Train R<sup>2</sup>: 0.59, Test r2: 0.6
+<br><br>
 
 
- 
