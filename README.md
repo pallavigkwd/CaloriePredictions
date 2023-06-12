@@ -54,6 +54,7 @@ This is how the baseline model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
 Train R<sup>2</sup>: 0.59 | Test R<sup>2</sup>: 0.6
 <br><br>
+We wouldn’t consider this model particularly good. According to the R<sup>2</sup> values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
 
 ---
 
@@ -72,12 +73,34 @@ For our actual modeling algorithm, we chose sklearn’s `DecisionTreeRegressor`,
 The two hyperparameters that we wanted to experiment with were the `max_depth` in `DecisionTreeRegressor` and `threshold` for when we binarized `minutes`. To do this, we used sklearn’s `GridSearchCV` with multiple values for both parameters we wanted to test. Through some initial testing, we found that a viable range for `max_depth` would exist between 5 and 20; however, the range for `threshold` was much larger - between 100 and 1000. Since this would produce a lot of models that would have to be tested (mostly due to the large range for `threshold`), we decided to increment the threshold first by 100 from 100 to 1000 to find an estimate. In doing so, we found `threshold` equal to 500. We then narrowed the range from 400 to 600, incrementing by 20, and found 440. Next, from 400 to 500, incrementing by 10, we found 440 again. In all of our trials, the optimal `max_depth` was 12. Thus, our final hyperparameters were `max_depth` = 12 and `threshold` = 440.
 <br><br>
 #### Results and Interpretation
-This is how the baseline model performed: <br>
+This is how the final model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
 Train R<sup>2</sup>: 0.98 | Test R<sup>2</sup>: 0.6 <br>
-Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s rmse of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the rmse gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
+Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s rmse of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
 ---
 
-## Permutation Testing
+## Fairness Analysis
+In conducting our fairness analysis, we posed the following question: <br>
+<b> Does our final model perform worse for recipes with ratings below 3 than it does for recipes with ratings above 3? </b>
+
+Group X: Recipes with `Average Rating` of 3 or lower <br>
+Group Y: Recipes with `Average Rating` of 4 or higher <br>
+Note that we dropped the recipes with `np.nan` ratings from our fairness analysis, however this still left us with approximately 97% of the recipes from our dataframe.
+
+- Test Statistic: RMSE
+(Must use RMSE because we built a regression model)
+- Null Hypothesis: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
+- Alternative Hypothesis: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
+- Test Statistic: Signed Difference of RMSE
+- Observed Test Statistic: 6.940093531778476
+- Significance Level: 0.01
+
+#### Permutation Test Results and Interpretation
+P-value: 0.0 <br>
+After running our permutation test, we calculated a p-value of 0.0, meaning that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups.
+
+
+
+
 
