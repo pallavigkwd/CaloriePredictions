@@ -33,7 +33,7 @@ Here are the first five rows of the resulting dataframe we worked with, we split
 
 #### Predition Problem: Predicting Calories
 Looking at our data set, we identified the following prediction problem:<br>
-<b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*</b>
+<center> <b> ”How can we best predict a recipe’s total calories using the features present in the data set?” </b> </center>
 
 **Problem Type**: Regression <br>
 This problem is a regression problem because we are trying to predict specific numerical 
@@ -86,9 +86,10 @@ For our actual modeling algorithm, we chose sklearn’s `DecisionTreeRegressor`,
 The two hyperparameters that we wanted to experiment with were the `max_depth` in `DecisionTreeRegressor` and `threshold` for when we binarized `minutes`. To do this, we used sklearn’s `GridSearchCV` with multiple values for both parameters we wanted to test. Through some initial testing, we found that a viable range for `max_depth` would exist between 5 and 20; however, the range for `threshold` was much larger - between 100 and 1000. Since this would produce a lot of models that would have to be tested (mostly due to the large range for `threshold`), we decided to increment the threshold first by 100 from 100 to 1000 to find an estimate. In doing so, we found `threshold` equal to 500. We then narrowed the range from 400 to 600, incrementing by 20, and found 440. Next, from 400 to 500, incrementing by 10, we found 440 again. In all of our trials, the optimal `max_depth` was 12. Thus, our final hyperparameters were `max_depth` = 12 and `threshold` = 440.
 <br><br>
 #### Results and Interpretation
-This is how the final model performed: <br>
+This is how the final model performed: 
+<br><br>
 **Train RMSE**: 200.17 | **Test RMSE**: 200.17 <br>
-**Train R^2**: 0.98     | **Test R^2**: 0.6 
+**Train R^2**: 0.98 | **Test R^2**: 0.6 
 <br>
 Our final model ended with an R^2 (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
@@ -112,5 +113,8 @@ Note that we dropped the recipes with `np.nan` ratings from our fairness analysi
 - **Significance Level**: 0.01
 
 #### Permutation Test Results and Interpretation
+
+<iframe src="assets/fairness_plot.html" width=800 height=600 frameBorder=0></iframe>
+
 **P-value**: 0.0 <br>
 After running our permutation test, we calculated a p-value of 0.0, meaning that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups.
