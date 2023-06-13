@@ -6,15 +6,23 @@ recipes and their ratings. Although we only extracted the `calories` from the `n
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here are the first five rows of the resulting dataframe we worked with:
+Here are the first five rows of the resulting dataframe we worked with, we split the dataframe for improved readibility:
 
-| name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
-|:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
-| impossible macaroni and cheese pie    | 275022 |        50 |        11 | ['cheddar cheese', ..., 'red pepper sauce']                                                 |               7 |                3 |      386.1 |                34 |             7 |             24 |              41 |                    62 |                     8 |
-| impossible rhubarb pie                | 275024 |        55 |         6 | ['rhubarb', ..., 'milk']                                                          |               8 |                3 |      377.1 |                18 |           208 |             13 |              13 |                    30 |                    20 |
-| impossible seafood pie                | 275026 |        45 |         7 | ['frozen crabmeat', ..., 'nutmeg']                     |               9 |                3 |      326.6 |                30 |            12 |             27 |              37 |                    51 |                     5 |
-| paula deen s caramel apple cheesecake | 275030 |        45 |        11 | ['apple pie filling', ..., 'pecans'] |               9 |                5 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
-| midori poached pears                  | 275032 |        25 |         8 | ['midori melon liqueur', ..., 'mint']        |               9 |                5 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
+| name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |
+|:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|
+| impossible macaroni and cheese pie    | 275022 |        50 |        11 | ['cheddar cheese', 'macaroni', 'milk', 'eggs', 'bisquick', 'salt', 'red pepper sauce']                                                 |               7 |                3 |
+| impossible rhubarb pie                | 275024 |        55 |         6 | ['rhubarb', 'eggs', 'bisquick', 'butter', 'salt', 'sugar', 'vanilla', 'milk']                                                          |               8 |                3 |
+| impossible seafood pie                | 275026 |        45 |         7 | ['frozen crabmeat', 'sharp cheddar cheese', 'cream cheese', 'onion', 'milk', 'bisquick', 'eggs', 'salt', 'nutmeg']                     |               9 |                3 |
+| paula deen s caramel apple cheesecake | 275030 |        45 |        11 | ['apple pie filling', 'graham cracker crust', 'cream cheese', 'sugar', 'vanilla', 'eggs', 'caramel topping', 'pecan halves', 'pecans'] |               9 |                5 |
+| midori poached pears                  | 275032 |        25 |         8 | ['midori melon liqueur', 'water', 'caster sugar', 'cinnamon stick', 'vanilla pod', 'lemon rind', 'orange rind', 'pear', 'mint']        |               9 |                5 |
+<br><br>
+|   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
+|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
+|      386.1 |                34 |             7 |             24 |              41 |                    62 |                     8 |
+|      377.1 |                18 |           208 |             13 |              13 |                    30 |                    20 |
+|      326.6 |                30 |            12 |             27 |              37 |                    51 |                     5 |
+|      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
+|      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
 
 <font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
@@ -22,21 +30,21 @@ Here are the first five rows of the resulting dataframe we worked with:
 Looking at our data set, we identified the following prediction problem:<br>
 <b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*</b>
 
-Problem Type: **Regression** <br>
+**Problem Type**: Regression <br>
 This problem is a regression problem because we are trying to predict specific numerical 
 values, rather than creating a classification per recipe.
 
-Response Variable: **Calories** <br>
+**Response Variable**: **Calories** <br>
 We chose to predict `calories` because we felt it is one of the most important values people 
 look at when choosing to prepare a recipe. Many people track their daily caloric intake and 
 use calorie counts to quantify the healthiness of a recipe. For this reason, we were 
 interested in predicting the recipes’ total calories. 
 
-Model Metric: **Root Mean Squared Error (RMSE)** <br>
+**Model Metric**: Root Mean Squared Error (RMSE) <br>
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
 by how much on average our predicted total calories were from the actual total calories. While
-we did calculate the R^2^ score to better understand how our model performed, we will
+we did calculate the R<sup>2</sup> score to better understand how our model performed, we will
 focus on RMSE.
 
 ---
@@ -52,9 +60,9 @@ Prior to inputting these features into our sklearn `LinearRegression` model, we 
 #### Results
 This is how the baseline model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R^2^: 0.59 | Test R^2^: 0.6
+Train R<sup>2</sup>: 0.59 | Test R<sup>2</sup>: 0.6
 <br><br>
-We wouldn’t consider this model particularly good. According to the R^2^ values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
+We wouldn’t consider this model particularly good. According to the R<sup>2</sup> values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
 
 ---
 
@@ -75,8 +83,8 @@ The two hyperparameters that we wanted to experiment with were the `max_depth` i
 #### Results and Interpretation
 This is how the final model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R^2^: 0.98 | Test R^2^: 0.6 <br>
-Our final model ended with an R^2^ (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
+Train R<sup>2</sup>: 0.98 | Test R<sup>2</sup>: 0.6 <br>
+Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
 ---
 
@@ -86,15 +94,16 @@ In conducting our fairness analysis, we posed the following question: <br>
 
 Group X: Recipes with `Average Rating` of 3 or lower <br>
 Group Y: Recipes with `Average Rating` of 4 or higher <br>
+<br><br>
 Note that we dropped the recipes with `np.nan` ratings from our fairness analysis, however this still left us with approximately 97% of the recipes from our dataframe.
 
-- *Test Statistic*: RMSE
+- **Test Statistic**: RMSE
 (Must use RMSE because we built a regression model)
-- *Null Hypothesis*: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
-- *Alternative Hypothesis*: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
-- *Test Statistic*: Signed Difference of RMSE
-- *Observed Test Statistic*: 6.940093531778476
-- *Significance Level*: 0.01
+- **Null Hypothesis**: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
+- **Alternative Hypothesis**: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
+- **Test Statistic**: Signed Difference of RMSE
+- **Observed Test Statistic**: 6.940093531778476
+- **Significance Level**: 0.01
 
 #### Permutation Test Results and Interpretation
 P-value: 0.0 <br>
