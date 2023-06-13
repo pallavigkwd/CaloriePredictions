@@ -4,10 +4,13 @@ Before beginning identifying our prediction problem, we first replicated the dat
 process that we performed in Project 3 to create one dataframe that contains information about 
 recipes and their ratings. Although we only extracted the `calories` from the `nutrition` column in Project 3, we extracted 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
-'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
+'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. The `PDV` in the nutritional
+value columns stands for percentage daily value.
 
-Here are the first five rows of the resulting dataframe we worked with, we split the dataframe for improved readibility: 
+Here are the first five rows of the resulting dataframe we worked with, we split the dataframe and added ellipses in the ingredients column for improved readibility: 
+
 <br><br>
+
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|
 | impossible macaroni and cheese pie    | 275022 |        50 |        11 | ['cheddar cheese', ...,'red pepper sauce']                                                 |               7 |                3 |
@@ -26,7 +29,7 @@ Here are the first five rows of the resulting dataframe we worked with, we split
 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
 <br>
-<font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
+
 
 #### Predition Problem: Predicting Calories
 Looking at our data set, we identified the following prediction problem:<br>
@@ -46,7 +49,7 @@ interested in predicting the recipes’ total calories.
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
 by how much on average our predicted total calories were from the actual total calories. While
-we did calculate the R<sup>2</sup> score to better understand how our model performed, we will
+we did calculate the R^2 score to better understand how our model performed, we will
 focus on RMSE.
 
 ---
@@ -61,10 +64,10 @@ Prior to inputting these features into our sklearn `LinearRegression` model, we 
 <br><br>
 #### Results
 This is how the baseline model performed: <br>
-Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R<sup>2</sup>: 0.59 | Test R<sup>2</sup>: 0.6
+**Train RMSE**: 200.17 | **Test RMSE**: 200.17 <br>
+**Train R^2**: 0.59 | **Test R^2**: 0.6
 <br><br>
-We wouldn’t consider this model particularly good. According to the R<sup>2</sup> values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
+We wouldn’t consider this model particularly good. According to the R^2 values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
 
 ---
 
@@ -85,9 +88,9 @@ The two hyperparameters that we wanted to experiment with were the `max_depth` i
 #### Results and Interpretation
 This is how the final model performed: <br>
 **Train RMSE**: 200.17 | **Test RMSE**: 200.17 <br>
-**Train R^2** 0.98     | **Test R^2**: 0.6 
+**Train R^2**: 0.98     | **Test R^2**: 0.6 
 <br>
-Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
+Our final model ended with an R^2 (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
 ---
 
