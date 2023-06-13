@@ -7,9 +7,7 @@ all nutritional values from the original `nutrition` column: `['calories', 'tota
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
 Here are the first five rows of the resulting dataframe we worked with, we split the dataframe for improved readibility: 
-
 <br><br>
-
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|
 | impossible macaroni and cheese pie    | 275022 |        50 |        11 | ['cheddar cheese', ...,'red pepper sauce']                                                 |               7 |                3 |
@@ -27,9 +25,7 @@ Here are the first five rows of the resulting dataframe we worked with, we split
 |      326.6 |                30 |            12 |             27 |              37 |                    51 |                     5 |
 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
-
 <br>
-
 <font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
 #### Predition Problem: Predicting Calories
@@ -88,8 +84,9 @@ The two hyperparameters that we wanted to experiment with were the `max_depth` i
 <br><br>
 #### Results and Interpretation
 This is how the final model performed: <br>
-Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R<sup>2</sup>: 0.98 | Test R<sup>2</sup>: 0.6 <br>
+**Train RMSE**: 200.17 | **Test RMSE**: 200.17 <br>
+**Train R^2** 0.98     | **Test R^2**: 0.6 
+<br>
 Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
 ---
@@ -103,14 +100,14 @@ Group Y: Recipes with `Average Rating` of 4 or higher <br>
 <br><br>
 Note that we dropped the recipes with `np.nan` ratings from our fairness analysis, however this still left us with approximately 97% of the recipes from our dataframe.
 
-- **Test Statistic**: RMSE
-(Must use RMSE because we built a regression model)
-- **Null Hypothesis**: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
-- **Alternative Hypothesis**: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
-- **Test Statistic**: Signed Difference of RMSE
-- **Observed Test Statistic**: 6.940093531778476
+- **Evaluation Metric**: RMSE
+(must use RMSE because we built a regression model)
+- **Null Hypothesis**: Our model is fair. Its RMSE for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
+- **Alternative Hypothesis**: Our model is unfair. Its precision for lower rated recipes is higher than its RMSE for higher rated recipes.
+- **Test Statistic**: Signed Difference of RMSE (RMSE of Lower Rated Recipes - RMSE of Higher Rated Recipes)
+- **Observed Test Statistic**: 6.94
 - **Significance Level**: 0.01
 
 #### Permutation Test Results and Interpretation
-P-value: 0.0 <br>
+**P-value**: 0.0 <br>
 After running our permutation test, we calculated a p-value of 0.0, meaning that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups.
