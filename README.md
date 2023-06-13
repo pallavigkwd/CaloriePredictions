@@ -2,11 +2,11 @@
 #### Introduction
 Before beginning identifying our prediction problem, we first replicated the data cleaning 
 process that we performed in Project 3 to create one dataframe that contains information about 
-recipes and their ratings. In preparation for identifying a prediction problem, we extracted 
+recipes and their ratings. Although we only extracted the `calories` from the `nutrition` column in Project 3, we extracted 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here are the first five rows of the resulting dataframe<sup>\*</sup> we worked with:
+Here are the first five rows of the resulting dataframe we worked with:
 
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |   calories |   total fat (PDV) |   sugar (PDV) |   sodium (PDV) |   protein (PDV) |   saturated fat (PDV) |   carbohydrates (PDV) |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|-----------:|------------------:|--------------:|---------------:|----------------:|----------------------:|----------------------:|
@@ -16,27 +16,27 @@ Here are the first five rows of the resulting dataframe<sup>\*</sup> we worked w
 | paula deen s caramel apple cheesecake | 275030 |        45 |        11 | ['apple pie filling', ..., 'pecans'] |               9 |                5 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 | midori poached pears                  | 275032 |        25 |         8 | ['midori melon liqueur', ..., 'mint']        |               9 |                5 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
 
-<font size = '2'> <center> <em> <sup>\*</sup>Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
+<font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
 #### Predition Problem: Predicting Calories
 Looking at our data set, we identified the following prediction problem:<br>
 <b>*”How can we best predict a recipe’s total calories using the features present in the data set?”*</b>
 
-Problem Type: <b>Regression</b> <br>
+Problem Type: **Regression** <br>
 This problem is a regression problem because we are trying to predict specific numerical 
 values, rather than creating a classification per recipe.
 
-Response Variable: <b>Calories</b> <br>
+Response Variable: **Calories** <br>
 We chose to predict `calories` because we felt it is one of the most important values people 
 look at when choosing to prepare a recipe. Many people track their daily caloric intake and 
 use calorie counts to quantify the healthiness of a recipe. For this reason, we were 
 interested in predicting the recipes’ total calories. 
 
-Model Metric: <b>Root Mean Squared Error (RMSE)</b> <br>
+Model Metric: **Root Mean Squared Error (RMSE)** <br>
 We chose to find RMSE the metrics for our model because we felt we could provide more thorough 
 interpretations of how well our model performed after execution. RMSE will be able to tell us
 by how much on average our predicted total calories were from the actual total calories. While
-we did calculate the R<sup>2</sup> score to better understand how our model performed, we will
+we did calculate the R^2^ score to better understand how our model performed, we will
 focus on RMSE.
 
 ---
@@ -52,9 +52,9 @@ Prior to inputting these features into our sklearn `LinearRegression` model, we 
 #### Results
 This is how the baseline model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R<sup>2</sup>: 0.59 | Test R<sup>2</sup>: 0.6
+Train R^2^: 0.59 | Test R^2^: 0.6
 <br><br>
-We wouldn’t consider this model particularly good. According to the R<sup>2</sup> values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
+We wouldn’t consider this model particularly good. According to the R^2^ values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
 
 ---
 
@@ -67,7 +67,7 @@ For our final model, we decided to use the following features: <br>
 <br><br>
 We opted against using the `average_rating` column because in our previous EDA, we noticed that the distribution of calories is pretty similar regardless of the `average_rating`. We thought that adding this variable in our model could add a spurious variable with no real effect.
 <br><br>
-For our actual modeling algorithm, we chose sklearn’s `DecisionTreeRegressor`, since we would be predicting a continuous variable `calories`. We suspected that adding the categorical columns in our model might break the linearity assumption for the linear regression algorithm. Thus, to stay on the same side, we opted for `DecisionTreeRegressor`.
+For our actual modeling algorithm, we chose sklearn’s `DecisionTreeRegressor`, since we would be predicting a continuous variable `calories`. We suspected that adding the categorical columns in our model might break the linearity assumption for the linear regression algorithm. Thus, to stay on the safe side, we opted for `DecisionTreeRegressor`.
 <br><br>
 #### Finding the Best Hyperparameters
 The two hyperparameters that we wanted to experiment with were the `max_depth` in `DecisionTreeRegressor` and `threshold` for when we binarized `minutes`. To do this, we used sklearn’s `GridSearchCV` with multiple values for both parameters we wanted to test. Through some initial testing, we found that a viable range for `max_depth` would exist between 5 and 20; however, the range for `threshold` was much larger - between 100 and 1000. Since this would produce a lot of models that would have to be tested (mostly due to the large range for `threshold`), we decided to increment the threshold first by 100 from 100 to 1000 to find an estimate. In doing so, we found `threshold` equal to 500. We then narrowed the range from 400 to 600, incrementing by 20, and found 440. Next, from 400 to 500, incrementing by 10, we found 440 again. In all of our trials, the optimal `max_depth` was 12. Thus, our final hyperparameters were `max_depth` = 12 and `threshold` = 440.
@@ -75,8 +75,8 @@ The two hyperparameters that we wanted to experiment with were the `max_depth` i
 #### Results and Interpretation
 This is how the final model performed: <br>
 Train RMSE: 200.17 | Test RMSE: 200.17 <br>
-Train R<sup>2</sup>: 0.98 | Test R<sup>2</sup>: 0.6 <br>
-Our final model ended with an R<sup>2</sup> (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s rmse of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
+Train R^2^: 0.98 | Test R^2^: 0.6 <br>
+Our final model ended with an R^2^ (or score) of 0.98, compared to the baseline model’s score of 0.59. The root mean squared error (RMSE) of the final model, with the test data, was 38.4, compared to the baseline model’s RMSE of 199.81. Comparing these two metrics, we can see a drastic improvement in performance from the baseline model to the final model. An interpretation of the RMSE gives us that on average, the final model’s predictions were off by around 38 calories whereas almost 200 calories for the baseline model. As mentioned before, the baseline model would be off by, on average, a typical meal when predicting calories for a daily 3 meals. The final model would be off by around 100 calories, on average, which is like only a very small snack.
 
 ---
 
@@ -88,19 +88,14 @@ Group X: Recipes with `Average Rating` of 3 or lower <br>
 Group Y: Recipes with `Average Rating` of 4 or higher <br>
 Note that we dropped the recipes with `np.nan` ratings from our fairness analysis, however this still left us with approximately 97% of the recipes from our dataframe.
 
-- Test Statistic: RMSE
+- *Test Statistic*: RMSE
 (Must use RMSE because we built a regression model)
-- Null Hypothesis: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
-- Alternative Hypothesis: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
-- Test Statistic: Signed Difference of RMSE
-- Observed Test Statistic: 6.940093531778476
-- Significance Level: 0.01
+- *Null Hypothesis*: Our model is fair. Its precision for recipes with lower ratings and recipes with higher ratings are roughly the same, and any differences are due to random chance.
+- *Alternative Hypothesis*: Our model is unfair. Its precision for lower rated recipes is higher than its precision for higher rated recipes.
+- *Test Statistic*: Signed Difference of RMSE
+- *Observed Test Statistic*: 6.940093531778476
+- *Significance Level*: 0.01
 
 #### Permutation Test Results and Interpretation
 P-value: 0.0 <br>
 After running our permutation test, we calculated a p-value of 0.0, meaning that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups.
-
-
-
-
-
