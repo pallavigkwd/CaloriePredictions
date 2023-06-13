@@ -6,7 +6,7 @@ recipes and their ratings. Although we only extracted the `calories` from the `n
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. 
 
-Here are the first five rows of the resulting dataframe we worked with, we split the dataframe for improved readibility:
+Here are the first five rows of the resulting dataframe we worked with, we split the dataframe for improved readibility: <br>
 
 | name                                  |     id |   minutes |   n_steps | ingredients                                                                                                                            |   n_ingredients |   average_rating |
 |:--------------------------------------|-------:|----------:|----------:|:---------------------------------------------------------------------------------------------------------------------------------------|----------------:|-----------------:|
@@ -23,7 +23,7 @@ Here are the first five rows of the resulting dataframe we worked with, we split
 |      326.6 |                30 |            12 |             27 |              37 |                    51 |                     5 |
 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
-
+<br>
 <font size = '2'> <center> <em> Note for a better visualization, values in the ingredients column have been condensed with ellipses </em> </center> </font>
 
 #### Predition Problem: Predicting Calories
