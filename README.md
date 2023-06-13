@@ -28,12 +28,12 @@ Here are the first five rows of the resulting dataframe we worked with, we split
 |      326.6 |                30 |            12 |             27 |              37 |                    51 |                     5 |
 |      577.7 |                53 |           149 |             19 |              14 |                    67 |                    21 |
 |      386.9 |                 0 |           347 |              0 |               1 |                     0 |                    33 |
-<br>
 
+<br>
 
 #### Predition Problem: Predicting Calories
 Looking at our data set, we identified the following prediction problem:<br>
-<center> <b> ”How can we best predict a recipe’s total calories using the features present in the data set?” </b> </center>
+**”How can we best predict a recipe’s total calories using the features present in the data set?”**
 
 **Problem Type**: Regression <br>
 This problem is a regression problem because we are trying to predict specific numerical 
@@ -113,8 +113,9 @@ Note that we dropped the recipes with `np.nan` ratings from our fairness analysi
 - **Significance Level**: 0.01
 
 #### Permutation Test Results and Interpretation
+These are the results of the permutation test:
 
-<iframe src="assets/fairness_plot.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/fairness_plot.html" width=650 height=500 frameBorder=0></iframe>
 
 **P-value**: 0.0 <br>
-After running our permutation test, we calculated a p-value of 0.0, meaning that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups.
+From our calculations and as can be seen by the above distribution, we found a p-value of 0.0. This p-values means that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups. This test, however, could provide some evidence toward that conclusion.
