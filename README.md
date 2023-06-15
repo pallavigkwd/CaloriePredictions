@@ -59,13 +59,12 @@ For our baseline model, we used the `protein (PDV)` column and the `sugar (PDV)`
 both of which are quantitative variables. We chose these two because we knew from existing 
 knowledge that protein and sugar have a linear relationship with the amount of calories. We 
 wanted to see that just off this information alone, how well we could make our predictions. 
-Prior to inputting these features into our sklearn `LinearRegression` model, we standardized both of them.
-<br><br>
+Prior to inputting these features into our sklearn `LinearRegression` model, we standardized both of them.<br>
 #### Results
 This is how the baseline model performed: <br>
 **Train RMSE**: 200.17 | **Test RMSE**: 200.17 <br>
 **Train R^2**: 0.59 | **Test R^2**: 0.6
-<br><br>
+<br>
 We wouldn’t consider this model particularly good. According to the R^2 values, the model only captures around 60% of the variance in `calories`. Also, looking at the RMSE values, we saw that the model is off, on average, by around 200 calories in its predictions. Putting this into context, if someone ate three meals a day, the model would predict the total daily calorie intake with an average error of 600 calories. This error is equivalent to the calorie count of a typical meal! We figured that this baseline model definitely needed improvement.
 
 ---
