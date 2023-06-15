@@ -58,7 +58,7 @@ For our final model, we decided to use the following features: <br>
 
 - `total fat (PDV)`, `sugar (PDV)`, `sodium (PDV)`, `protein (PDV)`, `saturated fat (PDV)`, `carbohydrates (PDV)` (quantitative): These are all features that we extracted during the data cleaning process from the original `nutrition` column, which contained nutrition facts about each recipe. Since all these are numerical columns, we standardized each before they were inputted to the model. We chose to use these features because they all, scientifically, have a relation to calories. For example, 1 gram of protein is 4 calories, 1 gram of fat is 9 calories, 1 gram of sugar is 4 calories, etc. Since these relationships exist naturally, we reasoned that they would be solid features. <br>
 
-- `minutes` (binarized, categorical): This is a feature engineered from binarizing the original `minutes` column with a threshold of 440 minutes (how we got this number will be explained later). We performed EDA with the minutes column and found a moderate, negative relationship between minutes and calories, after a certain threshold of minutes. See the graph below. Because of this EDA, we decided that a binarizer could help us capture this relationship since after a certain minute value, recipes would have lower calories.
+- `minutes` (binarized, categorical): This is a feature engineered from binarizing the original `minutes` column with a threshold of 440 minutes (how we got this number will be explained later). We performed EDA with the minutes column and found a moderate, negative relationship between minutes and calories, after a certain threshold of minutes. See the plot below. Because of this EDA, we decided that a binarizer could help us capture this relationship since after a certain minute value, recipes would have lower calories.
 
 <iframe src="assets/minutes_eda.html" width=650 height=500 frameBorder=0></iframe>
 
@@ -81,11 +81,11 @@ Our final model ended with an R^2 (or score) of 0.98, compared to the baseline m
 
 ## Fairness Analysis
 In conducting our fairness analysis, we posed the following question: <br>
-<b> Does our final model perform worse for recipes with ratings below 3 than it does for recipes with ratings above 3? </b>
+**Does our final model perform worse for recipes with ratings below 3 than it does for recipes with ratings above 3?**
 
 Group X: Recipes with `Average Rating` of 3 or lower <br>
 Group Y: Recipes with `Average Rating` of 4 or higher <br>
-<br><br>
+
 Note that we dropped the recipes with `np.nan` ratings from our fairness analysis, however this still left us with approximately 97% of the recipes from our dataframe.
 
 - **Evaluation Metric**: RMSE
@@ -102,4 +102,4 @@ These are the results of the permutation test:
 <iframe src="assets/fairness_plot.html" width=650 height=500 frameBorder=0></iframe>
 
 **P-value**: 0.002 <br>
-From our calculations and as can be seen by the above distribution, we found a p-value of 0.0. This p-values means that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups. This test, however, could provide some evidence toward that conclusion.
+From our calculations and as can be seen by the above distribution, we found a p-value of 0.002. This p-values means that it was highly unlikely that we would see a value equal to our test statistic or higher. With this finding, we can reject the null hypothesis that our model is fair across recipes with lower ratings and recipes with higher ratings. There may be other confounding factors that contribute to the inequality in the models, so we cannot make the statement that it is simply because of recipe rating that the model is unfair across our two groups. This test, however, could provide some evidence toward that conclusion.
