@@ -1,7 +1,7 @@
 ## Framing the Problem
 #### Introduction
 Before beginning identifying our prediction problem, we first replicated the data cleaning 
-process that we performed in Project 3 (https://vdubey0.github.io/RecipeAnalysis/) to create one dataframe that contains information about 
+process that we performed in [Project 3](https://vdubey0.github.io/RecipeAnalysis/) to create one dataframe that contains information about 
 recipes and their ratings. Although we only extracted the `calories` from the `nutrition` column in Project 3, we extracted 
 all nutritional values from the original `nutrition` column: `['calories', 'total fat (PDV)', 
 'sugar (PDV)', 'sodium (PDV)', 'protein (PDV)', 'saturated fat (PDV)', 'carbohydrates (PDV)']`. The `PDV` in the nutritional
