@@ -3,3 +3,4 @@ plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 title: [Calorie Predictions]
 description: [DSC80 Project 5]
+description: [DSC80 Project 3 - https://vdubey0.github.io/RecipeAnalysis/]
